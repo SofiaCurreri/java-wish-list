@@ -1,10 +1,13 @@
 package org.lessons.java.christmas;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 public class WishList {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner utente = new Scanner(System.in);
 
         ArrayList<String> wishList = new ArrayList<>();
@@ -30,6 +33,23 @@ public class WishList {
         Collections.sort(wishList);
         for (String present : wishList) {
             System.out.println(present);
+        }
+
+        utente.close();
+
+        //creazione file.txt contenente wish list
+        File myWishList = new File("./myWishList.txt");
+        boolean fileCreated = myWishList.createNewFile();
+
+        if (fileCreated) {
+            FileWriter myWriter = new FileWriter(myWishList);
+            for (String present : wishList) {
+                myWriter.write("\n" + present);
+            }
+            myWriter.close();
+            System.out.println("Il file myWishList.txt è stato creato con successo");
+        } else {
+            System.out.println("Errore durante la creazione del file myWishList.txt");
         }
     }
 }
