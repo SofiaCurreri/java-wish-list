@@ -40,50 +40,32 @@ public class WishList {
                     String previousPresents = fileScanner.nextLine();
                     wishList.add(previousPresents);
                 }
-                fillWishList(utente, exit, wishList);
+
             } catch (IOException e) {
                 System.out.println("Errore durante la lettura del file myWishList.txt");
             }
-        } else {
-            fillWishList(utente, exit, wishList);
-            boolean fileCreated = myWishList.createNewFile();
-
-            if (fileCreated) {
-                FileWriter myWriter = new FileWriter(myWishList);
-                for (String present : wishList) {
-                    myWriter.write("\n" + present);
-                }
-                myWriter.close();
-                System.out.println("Il file myWishList.txt è stato creato con successo");
-            } else {
-                System.out.println("Errore durante la creazione del file myWishList.txt");
-            }
         }
 
-//        do{
-//            System.out.println("Vuoi inserire un regalo nella tua wish list? (s/n)");
-//            String choice = utente.nextLine();
-//            if(choice.equals("s")){
-//                System.out.println("Inserisci un regalo");
-//                String present = utente.nextLine();
-//                wishList.add(present);
-//                System.out.println("Al momento ci sono " + wishList.size() + " elementi nella tua wish list");
-//            } else if (choice.equals("n")) {
-//                exit = true;
-//                System.out.println("Sei uscito dalla tua wish list");
-//            } else {
-//                System.out.println("Devi inserire 's' o 'n', che equivalgono a 'si' o 'no'");
-//            }
-//        }while(!exit);
+        //riempio wish list con regali inseriti da terminale
+        fillWishList(utente, exit, wishList);
 
+        //stampo wish list a terminale
         System.out.println("\nEcco la tua wish list: ");
         Collections.sort(wishList);
         for (String present : wishList) {
             System.out.println(present);
         }
 
+        //aggiungo regali a wish list
+        try (FileWriter myWriter = new FileWriter(myWishList, true)) {
+            for (String present : wishList) {
+                myWriter.write(present + "\n");
+            }
+            System.out.println("Aggiornamento del file myWishList.txt completato con successo");
+        } catch (IOException e) {
+            System.out.println("Errore durante l'aggiornamento del file myWishList.txt");
+        }
+
         utente.close();
-
-
     }
 }
