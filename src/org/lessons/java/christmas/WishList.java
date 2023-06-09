@@ -17,6 +17,7 @@ public class WishList {
                 System.out.println("Inserisci un regalo");
                 String present = utente.nextLine();
                 wishList.add(present);
+                System.out.println("Al momento ci sono " + wishList.size() + " elementi nella tua wish list");
             } else if (choice.equals("n")) {
                 exit = true;
                 System.out.println("Sei uscito dalla tua wish list");
