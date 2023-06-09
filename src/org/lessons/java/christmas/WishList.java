@@ -40,7 +40,6 @@ public class WishList {
                     String previousPresents = fileScanner.nextLine();
                     wishList.add(previousPresents);
                 }
-
             } catch (IOException e) {
                 System.out.println("Errore durante la lettura del file myWishList.txt");
             }
